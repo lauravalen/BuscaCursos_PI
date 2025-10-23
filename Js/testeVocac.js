@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarQuestao() {
         if (enunciadoEl && indice < perguntas.length) {
-            enunciadoEl.textContent = '(' + (indice + 1) + '/' + perguntas.length + ') ' + perguntas[indice].texto;
+            enunciadoEl.innerHTML = '<span class="indicador-pergunta">(' + (indice + 1) + '/' + perguntas.length + ')</span>' + perguntas[indice].texto + '';
         }
     }
 

@@ -899,26 +899,175 @@ footer a:hover{
 
 
 /*TESTE VOCACIONAL*/
-.teste-vocac{
-    color: var(--branco);
-    flex-direction: column;
-    text-align: center;
-}
 
-.opcoes{
+.teste-vocac {
+    color: var(--branco-bege);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.resultado-teste{
-    color: var(--branco);
-    flex-direction: column;
+    padding: 2rem;
     text-align: center;
 }
 
-/* .input[name="opcao"]{
-    
-} */
+.teste-vocac h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.teste-vocac p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    max-width: 100%;
+}
+
+#enunciados {
+    font-size: 1.5rem;
+    font-family: vietnam;
+    color: var(--branco-bege);
+    min-height: 50px;
+}
+
+.opcoes-container input[type="radio"] {
+    display: none;
+}
+
+.opcoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.opcao-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.opcoes-container label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 80px;
+    border: 3px solid var(--branco-bege);
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--branco-bege);
+    font-family: bebas;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.opcoes-container label span {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.9rem;
+    font-family: vietnam;
+    white-space: nowrap;
+}
+
+.opcoes-container input[type="radio"]:checked + label {
+    background-color: var(--azul-normal);
+    border-color: var(--branco-bege);
+    color: var(--branco-bege);
+}
+
+.opcoes-container label:hover {
+    background-color: var(--azul-normal);
+}
+
+#proximo {
+    font-family: vietnam;
+    color: var(--branco-bege);
+    font-size: 1rem;
+    background-color: var(--azul-normal);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+}
+#proximo:hover {
+    background-color: #1a5ca3;
+}
+
+#enunciados .indicador-pergunta {
+    font-size: 1rem;
+    color: var(--branco-bege);
+    margin-right: 10px;
+    background-size: contain;
+    background-color: var(--azul-normal);
+}
+
+#resultado-teste {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: vietnam;
+    color: var(--branco-bege);
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+#resultado-teste h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+#res-teste{
+    font-family: vietnam;
+    color: var(--branco-bege);
+    font-size: 1rem;
+    background-color: var(--azul-normal);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+}
+#res-teste:hover {
+    background-color: #1a5ca3;
+}
+
+.teste-vocac-index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
+
+.teste-vocac-index h2{
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+    color: var(--branco-bege);
+}
+.teste-vocac-index p{
+    font-size: 1rem;
+    color: var(--branco-bege);
+}
+#faca-teste {
+    font-family: vietnam;
+    color: var(--branco-bege);
+    font-size: 1rem;
+    background-color: var(--azul-normal);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+}
+#faca-teste:hover {
+    background-color: #1a5ca3;
+}

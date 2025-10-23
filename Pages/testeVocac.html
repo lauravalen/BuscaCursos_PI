@@ -26,31 +26,43 @@
 
         <div id="area-questao">
             <h2 id="enunciados">Enunciados</h2>
-            <div id="opcoes">
-                <input type="radio" name="opcao" id="opcao1" value="1">
-                <label for="opcao1" id="label1"> 1
-                <span>Discordo Totalmente</span>
-                </label>
+            <div id="opcoes" class="opcoes-container">
 
-                <input type="radio" name="opcao" id="opcao2" value="2">
-                <label for="opcao2" id="label2"> 2
-                <span>Discordo Parcialmente</span>
-                </label>
+                <div class="opcao-item">
+                    <input type="radio" name="opcao" id="opcao1" value="1">
+                    <label for="opcao1">
+                    1 
+                    <span>Discordo Totalmente</span>
+                    </label>
+                </div>
 
-                <input type="radio" name="opcao" id="opcao3" value="3">
-                <label for="opcao3" id="label3"> 3
-                <span>Neutro</span>
+                <div class="opcao-item">
+                    <input type="radio" name="opcao" id="opcao2" value="2">
+                    <label for="opcao2" id="label2"> 2
+                    <span>Discordo Parcialmente</span>
                 </label>
+                </div>
 
-                <input type="radio" name="opcao" id="opcao4" value="4">
-                <label for="opcao4" id="label4"> 4
-                <span>Concordo Parcialmente</span>
-                </label>
+                <div class="opcao-item">
+                    <input type="radio" name="opcao" id="opcao3" value="3">
+                    <label for="opcao3" id="label3"> 3
+                    <span>Neutro</span>
+                    </label>
+                </div>
 
-                <input type="radio" name="opcao" id="opcao5" value="5">
-                <label for="opcao5" id="label5"> 5
-                <span>Concordo Totalmente</span>
-                </label>
+                <div class="opcao-item">
+                    <input type="radio" name="opcao" id="opcao4" value="4">
+                    <label for="opcao4" id="label4"> 4
+                    <span>Concordo Parcialmente</span>
+                    </label>
+                </div>
+
+                <div class="opcao-item">
+                    <input type="radio" name="opcao" id="opcao5" value="5">
+                    <label for="opcao5" id="label5"> 5
+                    <span>Concordo Totalmente</span>
+                    </label>
+                </div>
 
         </div>
 
@@ -65,7 +77,7 @@
     <div id="resultado-teste" style="display:none;">
             <h2>Resultado do Teste Vocacional</h2>
             <p id="carreira-sugerida"></p>
-            <button onclick="location.reload()">Refazer Teste</button>
+            <button id="res-teste" onclick="location.reload()">Refazer Teste</button>
     </div>
 
     <!-- FOOTER -->
