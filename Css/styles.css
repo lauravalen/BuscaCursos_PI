@@ -1038,10 +1038,11 @@ footer a:hover{
 }
 
 .teste-vocac-index{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    /* display: block; */
+    /* flex-direction: column;
+    align-items: center; */
+    /* width: 80%;
+    max-width: 400px; */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2rem;
