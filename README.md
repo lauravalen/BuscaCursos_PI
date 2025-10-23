@@ -12,7 +12,7 @@ A plataforma Busca Cursos é capaz de:
 - Gerenciar o cadastro dos usuários; 
 - Receber avaliações de usuários; 
 - Disponibilizar avaliações dos usuários; 
-- Receber sugestões dos usuários. 
+- Receber sugestões dos usuários.
 
 ## Instalação
   Não é necessário fazer a instalação da aplicação, sendo de acesso on-line.
@@ -31,5 +31,5 @@ Esse projeto está sob a licença MIT.
 - Bianca Mendes [@Biancamsm](https://github.com/Biancamsm)
 - Gabrielly de Souza [@Gabidanety](https://github.com/Gabidanety)
 - Laura Valentim [@lauravalen](https://github.com/lauravalen)
-- Natália Garces [Natgalia98](https://github.com/Natgalia98)
+- Natália Garces [@Natgalia98](https://github.com/Natgalia98)
 - Natália Doreto [@Dorettto](https://github.com/Dorettto)
