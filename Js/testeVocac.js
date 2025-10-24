@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const perguntas = [
-        { texto: 'enunciado 1', area: 'area 1' },
-        { texto: 'enunciado 2', area: 'area 2' },
-        { texto: 'enunciado 3', area: 'area 3' }
+        { texto: 'Você gosta de resolver problemas matemáticos e lógicos?', area: 'exatas' },
+        { texto: 'Você tem interesse em debates sobre sociedade e cultura?', area: 'humanas' },
+        { texto: 'Você se interessa por estudos sobre seres vivos e natureza?', area: 'biologicas' },
+        { texto: 'Você gosta de atividades que envolvem criatividade e expressão visual?', area: 'artes' },
+        { texto: 'Você tem facilidade em se comunicar e trabalhar com pessoas?', area: 'sociais' }
     ];
 
     const sugestoesCarreiras = {
@@ -71,8 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function exibirResultado() {
-        calcularPontuacoes(); 
+
+        const parg = document.getElementsByName("parg");
+        if (parg.length > 0) {
+            parg[0].style.display = "none";
+        }
         
+        calcularPontuacoes();
+                
         let areaVencedora = '';
         let maxPontos = -1;
 
@@ -99,9 +107,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const selecionado = document.querySelector('input[name="opcao"]:checked');
         
         if (!selecionado) {
-            alert('Por favor, selecione uma opção para continuar.');
-            return; 
+            const msgTeste = document.getElementById('msgTeste');
+            
+            if (msgTeste) {
+                msgTeste.textContent = 'Por favor, selecione uma opção para continuar.';
+                msgTeste.classList.add('mensagem-erro');
+                msgTeste.classList.remove('mensagem-oculta');
+            }
+            return;
+        } else {
+            const msgTeste = document.getElementById('msgTeste');
+            if (msgTeste) {
+                msgTeste.textContent = '';
+                msgTeste.classList.add('mensagem-oculta');
+                msgTeste.classList.remove('mensagem-erro');
+            }
         }
+        
 
         salvarRespostaAtual();
         limparSelecao();

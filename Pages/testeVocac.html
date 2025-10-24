@@ -22,7 +22,9 @@
     <div class="teste-vocac">
 
         <h1>Teste Vocacional</h1>
-        <p>Responda as perguntas abaixo para descobrir qual carreira combina mais com você!</p>
+        <p name="parg">Responda as perguntas abaixo para descobrir qual carreira combina mais com você!</p>
+
+        <div id="msgTeste" class="mensagem-oculta"></div>
 
         <div id="area-questao">
             <h2 id="enunciados">Enunciados</h2>
@@ -75,7 +77,7 @@
 
 
     <div id="resultado-teste" style="display:none;">
-            <h2>Resultado do Teste Vocacional</h2>
+            <h2>Resultado</h2>
             <p id="carreira-sugerida"></p>
             <button id="res-teste" onclick="location.reload()">Refazer Teste</button>
     </div>

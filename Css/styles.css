@@ -931,12 +931,12 @@ footer a:hover{
 background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 
 .teste-vocac h1 {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     margin-bottom: 0.5rem;
 }
 
 .teste-vocac p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
     max-width: 100%;
 }
@@ -1000,7 +1000,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 
 .opcoes-container label:hover {
-    background-color: var(--azul-normal);
+    background-color: rgba(37, 115, 217, 0.5);
 }
 
 #proximo {
@@ -1020,7 +1020,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 
 #enunciados .indicador-pergunta {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: var(--branco-bege);
     margin-right: 10px;
     background-size: contain;
@@ -1034,12 +1034,12 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     text-align: center;
     font-family: vietnam;
     color: var(--branco-bege);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 20px;
     margin-bottom: 30px;
 }
 #resultado-teste h2 {
-    font-size: 2.5rem;
+    font-size: 3.2rem;
     margin-bottom: 10px;
 }
 #res-teste{
@@ -1057,7 +1057,6 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 #res-teste:hover {
     background-color: #1a5ca3;
 }
-
 
 .teste-vocac-index h2{
     font-size: 2.5rem;
@@ -1082,4 +1081,14 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 #faca-teste:hover {
     background-color: #1a5ca3;
+}
+
+.mensagem-erro{
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    font-family: vietnam;
+}
+.mensagem-oculta {
+    display: none;
 }
