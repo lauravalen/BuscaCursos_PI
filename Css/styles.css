@@ -936,7 +936,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 
 .teste-vocac p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
     max-width: 100%;
 }
@@ -1039,7 +1039,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     margin-bottom: 30px;
 }
 #resultado-teste h2 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     margin-bottom: 10px;
 }
 #res-teste{
