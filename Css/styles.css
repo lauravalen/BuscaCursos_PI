@@ -931,7 +931,7 @@ footer a:hover{
 background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 
 .teste-vocac h1 {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -1034,12 +1034,12 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     text-align: center;
     font-family: vietnam;
     color: var(--branco-bege);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 20px;
     margin-bottom: 30px;
 }
 #resultado-teste h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 10px;
 }
 #res-teste{
