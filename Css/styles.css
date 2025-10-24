@@ -526,7 +526,7 @@ CAMPO CATEGORIA E CURSOS */
 /* FOOTER */
 footer{
     background-color: var(--branco-bege);
-    padding: 70px 70px;
+    padding: 60px 60px;
 }
 
 /* FOOTER CONTATOS E REDES */
@@ -899,7 +899,28 @@ footer a:hover{
 
 
 /*TESTE VOCACIONAL*/
+.div-tt-vocal{
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+   
 
+}
+
+
+.teste-vocac-index{
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    margin-bottom: 2rem;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
 .teste-vocac {
     color: var(--branco-bege);
     display: flex;
@@ -907,7 +928,7 @@ footer a:hover{
     align-items: center;
     padding: 2rem;
     text-align: center;
-}
+background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 
 .teste-vocac h1 {
     font-size: 3.5rem;
@@ -1037,16 +1058,6 @@ footer a:hover{
     background-color: #1a5ca3;
 }
 
-.teste-vocac-index{
-    /* display: block; */
-    /* flex-direction: column;
-    align-items: center; */
-    /* width: 80%;
-    max-width: 400px; */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-}
 
 .teste-vocac-index h2{
     font-size: 2.5rem;
