@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const perguntas = [
-        { texto: 'enunciado 1', area: 'area 1' },
-        { texto: 'enunciado 2', area: 'area 2' },
-        { texto: 'enunciado 3', area: 'area 3' }
+        { texto: 'Você gosta de resolver problemas matemáticos e lógicos?', area: 'exatas' },
+        { texto: 'Você tem interesse em debates sobre sociedade e cultura?', area: 'humanas' },
+        { texto: 'Você se interessa por estudos sobre seres vivos e natureza?', area: 'biologicas' },
+        { texto: 'Você gosta de atividades que envolvem criatividade e expressão visual?', area: 'artes' },
+        { texto: 'Você tem facilidade em se comunicar e trabalhar com pessoas?', area: 'sociais' }
     ];
 
     const sugestoesCarreiras = {
