@@ -174,4 +174,117 @@ nav.ativo {
 .sugestao:hover {
     background-color: #eae4e4;
 }
+
+
+/* 
+CAMPO CATEGORIA E CURSOS */
+
+
+.div-curso-cat{
+    width: 100%;
+    height: 800px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    /* background-color: var(--azul-escuro); */
+    margin-top: 0;
+    margin-bottom: 1%;    
+    background-color: violet;
+}
+
+/* Categorias */
+.div-categoria{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    /* background-color: var(--azul-escuro); */
+    background-color: orange;
+    padding: 1%;
+   
+}
+
+.div-categoria ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    text-align: center;
+    width:100%;
+    height: 50%;
+}
+
+.div-categoria ul li {
+    border: 2px solid var(--azul-normal); 
+    padding: 10px; 
+    border-radius: 2.0rem; 
+    text-align: center; 
+    width: 100px; 
+    background-color: transparent;
+}
+
+.div-categoria a{
+    text-decoration: none;
+   color: var(--branco-bege);
+    font-size: 1.0rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    
+}
+.div-categoria ul li:hover {
+    background-color: var(--azul-normal); 
+    transition: 0.3s; 
+}
+
+/*  Cursos */
+.div-acesso{
+    width: 70%;
+    height: 100%;
+    background-color: transparent;
+    }
+.div-subTitle {
+    width: 100%;
+    height: 30%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: flex-end; 
+    
+}
+.div-subTitle h2{
+    font-size: 3.3rem;
+    color: var(--branco-bege);
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 5%;
+    margin-right: 150px;
+}
+
+.div-subTitle p{
+    color: var(--branco-bege);
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 5%;
+    margin-right: 150px;
+}
+
+.div-subTitle hr{
+    width: 80%;
+    height: 1px;
+    background-color: var(--branco-bege);
+    border: none;
+    padding-left: 10%;
+    margin-right: 150px;
+
+}
+
+
+
+
+
+
+
 }
