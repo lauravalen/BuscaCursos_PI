@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
             parg[0].style.display = "none";
         }
         
+        if (areaQuestaoDiv) areaQuestaoDiv.style.display = 'none';
+
         calcularPontuacoes();
                 
         let areaVencedora = '';
@@ -95,12 +97,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const sugestao = sugestoesCarreiras[areaVencedora] || 'Não foi possível determinar uma área.';
         
-        if (carreiraSugestao) {
-            carreiraSugestao.textContent = 'Sua área de maior afinidade é ' + areaVencedora.toUpperCase() + '! Sugestões de carreira: ' + sugestao;
-        }
+        const caminhoImagem = '../assets/images/img-curso-TI.png';
+        
+        let gridHTML = `
+            <div class="resultados-grid">
+                <a href="#" class="curso-box">
+                    <img src="${caminhoImagem}" alt="Sugestão de Curso 1">
+                </a>
+                <a href="#" class="curso-box">
+                    <img src="${caminhoImagem}" alt="Sugestão de Curso 2">
+                </a>
+                <a href="#" class="curso-box">
+                    <img src="${caminhoImagem}" alt="Sugestão de Curso 3">
+                </a>
+            </div>
+        `;
 
-        if (areaQuestaoDiv) areaQuestaoDiv.style.display = 'none';
-        if (resultadoDiv) resultadoDiv.style.display = 'block';
+        const htmlFinal = `
+            <h2>RESULTADO</h2>
+            <p id="carreira-sugerida">
+                Sua área de maior afinidade é <strong>${areaVencedora.toUpperCase()}</strong>!<br>
+                Sugestões de carreira: ${sugestao} <br><br>
+                Confira alguns cursos que podem te interessar:
+            </p>
+            
+            ${gridHTML}
+
+            <button id="res-teste" onclick="location.reload()">Refazer Teste</button>
+        `;
+
+        if (resultadoDiv) {
+            resultadoDiv.innerHTML = htmlFinal;
+            resultadoDiv.style.display = 'flex';
+        }
     }
 
     function proximaQuestao() {
