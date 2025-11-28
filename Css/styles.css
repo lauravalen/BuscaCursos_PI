@@ -904,10 +904,7 @@ footer a:hover{
     height: 200px;
     align-items: center;
     justify-content: center;
-   
-
 }
-
 
 .teste-vocac-index{
     display: flex; 
@@ -1117,7 +1114,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 
 .slider-item {
-    min-width: calc(100% / 3);
+    min-width: calc(80% / 3);
     box-sizing: border-box;
     padding: 0 10px;
     height: auto; 
@@ -1183,7 +1180,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 
 @media (max-width: 768px) {
     .slider-item {
-        min-width: 100%; /* 1 item por tela */
+        min-width: 100%;
         padding: 0 20px;
     }
 }

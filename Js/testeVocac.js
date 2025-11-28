@@ -207,7 +207,7 @@ perguntas.sort(() => Math.random() - 0.5);
         const maxIndex = Math.ceil(items / itemsPorTela) - 1;
         let currentIndex = 0;
 
-        const slideWidthPercent = 100 / itemsPorTela;
+        const slideWidthPercent = 90 / itemsPorTela;
 
         function updateCarrossel() {
             const offset = currentIndex * slideWidthPercent; 
