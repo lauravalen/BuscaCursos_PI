@@ -115,7 +115,6 @@ perguntas.sort(() => Math.random() - 0.5);
 
     function exibirResultado() {
 
-        // 1. Esconder introdução e perguntas
         const parg = document.getElementsByName("parg");
         if (parg.length > 0) {
             parg[0].style.display = "none";
@@ -123,7 +122,6 @@ perguntas.sort(() => Math.random() - 0.5);
         
         if (areaQuestaoDiv) areaQuestaoDiv.style.display = 'none';
 
-        // 2. Calcular pontos
         calcularPontuacoes();
                 
         let areaVencedora = '';
