@@ -138,19 +138,41 @@ perguntas.sort(() => Math.random() - 0.5);
 
         const sugestao = sugestoesCarreiras[areaVencedora] || 'Não foi possível determinar uma área.';
         
-        const caminhoImagem = '../assets/images/img-curso-TI.png';
+        const cursosPorArea = {
+            sociais: [
+                { nome: "Jornalismo Digital", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+                { nome: "Recursos Humanos", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+                { nome: "Publicidade e Marketing", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+                { nome: "Gestão Comercial", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+                { nome: "Serviço Social", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+                { nome: "Comércio Exterior", imagem: '../assets/images/img-curso-TI.png', link: '../Pages/pagesCursos.html' },
+            ]
+        }
+
+        const cursosVencedores = cursosPorArea[areaVencedora] || cursosPorArea.sociais;
+
         
-        let gridHTML = `
-            <div class="resultados-grid">
-                <a href="#" class="curso-box">
-                    <img src="${caminhoImagem}" alt="Sugestão de Curso 1">
-                </a>
-                <a href="#" class="curso-box">
-                    <img src="${caminhoImagem}" alt="Sugestão de Curso 2">
-                </a>
-                <a href="#" class="curso-box">
-                    <img src="${caminhoImagem}" alt="Sugestão de Curso 3">
-                </a>
+
+        let slidesHTML = cursosVencedores.map((curso, index) => `
+            <a href="${curso.link}" class="curso-box slider-item" data-index="${index}">
+                <img src="${curso.imagem}" alt="${curso.nome}">
+                <div class="curso-nome">${curso.nome}</div>
+            </a>
+        `).join('');
+
+        let carrosselHTML = `
+            <div class="carrossel-wrapper">
+                <button id="prev-btn" class="carrossel-btn prev-btn">
+                    &#10094; </button>
+
+                <div class="slider-container">
+                    <div id="slider-track" class="slider-track" style="width: ${cursosVencedores.length * 33.333}%">
+                        ${slidesHTML}
+                    </div>
+                </div>
+
+                <button id="next-btn" class="carrossel-btn next-btn">
+                    &#10095; </button>
             </div>
         `;
 
@@ -161,17 +183,57 @@ perguntas.sort(() => Math.random() - 0.5);
                 Sugestões de carreira: ${sugestao} <br><br>
                 Confira alguns cursos que podem te interessar:
             </p>
-            
-            ${gridHTML}
-
-            <button id="res-teste" onclick="location.reload()">Refazer Teste</button>
+            ${carrosselHTML}
         `;
 
         if (resultadoDiv) {
             resultadoDiv.innerHTML = htmlFinal;
             resultadoDiv.style.display = 'flex';
+
+            iniciarCarrossel();
         }
     }
+
+    function iniciarCarrossel() {
+        const track = document.getElementById('slider-track');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        if (!track || !prevBtn || !nextBtn) return;
+
+        const items = track.querySelectorAll('.slider-item').length;
+
+        const itemsPorTela = 3; 
+        const maxIndex = Math.ceil(items / itemsPorTela) - 1;
+        let currentIndex = 0;
+
+        const slideWidthPercent = 100 / itemsPorTela;
+
+        function updateCarrossel() {
+            const offset = currentIndex * slideWidthPercent; 
+            track.style.transform = `translateX(-${offset}%)`;
+            
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === maxIndex;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarrossel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarrossel();
+            }
+        });
+        updateCarrossel();
+    }
+
+
 
     function proximaQuestao() {
         const selecionado = document.querySelector('input[name="opcao"]:checked');

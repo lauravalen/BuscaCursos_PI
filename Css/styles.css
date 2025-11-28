@@ -1094,12 +1094,36 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
 }
 
 .resultados-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-    margin: 30px auto;
-    max-width: 1000px;
+    display: none;
+}
+
+.carrossel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 95%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.slider-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
+.slider-item {
+    min-width: calc(100% / 3);
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: auto; 
+    position: relative;
+    border: none !important; 
+    text-align: center;
 }
 
 .curso-box {
@@ -1117,6 +1141,7 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     width: 100%;
     height: auto; 
     display: block;
+    border-radius: 12px;
 }
 
 .curso-box:hover {
@@ -1125,9 +1150,40 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
 
+.curso-nome {
+    color: white;
+    font-family: vietnam;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.carrossel-btn {
+    background-color: var(--azul-normal);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    transition: background-color 0.2s;
+    margin: 0 5px;
+}
+
+.carrossel-btn:hover:not(:disabled) {
+    background-color: #1a5ca3;
+}
+
+.carrossel-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
-    .resultados-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+    .slider-item {
+        min-width: 100%; /* 1 item por tela */
+        padding: 0 20px;
     }
 }
