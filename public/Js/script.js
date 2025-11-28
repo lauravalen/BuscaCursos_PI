@@ -53,7 +53,6 @@
             }
         });
 
-
 // -- MODAL - page curso --//
 
 const modal = document.getElementById("modalCurso");
@@ -70,6 +69,18 @@ btns.forEach(btn => {
         document.getElementById("modalDescricao").innerText = this.dataset.descricao;
         document.getElementById("cursoIdFeedback").value = id;
 
+        // plataformas vindas do botão
+        const plataformas = JSON.parse(this.dataset.plataformas);
+        const divPlataforma = document.getElementById("modalPlataforma");
+
+        if (plataformas.length > 0) {
+            divPlataforma.innerHTML = 
+                "<strong>Plataforma:</strong> " + 
+                plataformas.map(p => `<span>${p}</span>`).join(", ");
+        } else {
+            divPlataforma.innerHTML = "<strong>Plataforma:</strong> Não informado";
+        }
+
         modal.style.display = "flex";
 
         carregarFeedbacks(id);
@@ -79,6 +90,9 @@ btns.forEach(btn => {
 closeBtn.onclick = () => modal.style.display = "none";
 window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 
+
+// --------- CARREGA FEEDBACKS + AVALIAÇÃO MÉDIA ---------- //
+
 function carregarFeedbacks(id) {
     fetch(`/cursos/${id}/feedbacks`)
         .then(res => res.json())
@@ -87,20 +101,34 @@ function carregarFeedbacks(id) {
 
             if (data.feedbacks.length === 0) {
                 div.innerHTML = "<p>Nenhum feedback ainda.</p>";
-                return;
+            } else {
+                div.innerHTML = data.feedbacks.map(f => `
+                    <div class="comentarioUsers">
+                        <div class="row-comentariouser">
+                            <p style="color: #00145A;font-size:14px;font-weight:bold;margin-top:0.3rem">@${f.usuario}:</p>
+                            <div class="user-stars">
+                                ${'★'.repeat(f.nota)}${'☆'.repeat(5 - f.nota)}
+                            </div>
+                        </div>
+                        <p>${f.texto}</p>
+                    </div>
+                `).join("");
             }
 
-            div.innerHTML = data.feedbacks.map(f => `
-                <div style="margin-bottom:12px;">
-                    <strong>${f.usuario}</strong>
-                    <p>${f.texto}</p>
-                </div>
-            `).join("");
+            const media = Number(data.avaliacao);
+            const estrelasCheias = '★'.repeat(Math.round(media));
+            const estrelasVazias = '☆'.repeat(5 - Math.round(media));
 
-            document.getElementById("modalAvaliacao").innerText =
-                data.avaliacao ? data.avaliacao + "/5" : "Sem avaliações";
+            document.getElementById("modalAvaliacaoMedia").innerHTML =
+                media
+                    ? `<strong></strong> ${media} ${estrelasCheias}${estrelasVazias}`
+                    : "<strong></strong> 0.0 ☆☆☆☆☆";
         });
+
 }
+
+
+// --------- SALVAR FEEDBACK ---------- //
 
 document.getElementById("formFeedback")?.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -111,11 +139,17 @@ document.getElementById("formFeedback")?.addEventListener("submit", function(e) 
         method: "POST",
         body: formData
     })
-    .then(r => r.json())
+    .then(r => r.json().then(data => ({ status: r.status, body: data })))
     .then(res => {
-        alert(res.message);
+
+        if (res.status === 401) {
+            alert("Você precisa estar logada para comentar!");
+            return;
+        }
+
+        alert("Comentário enviado com sucesso!");
+
         carregarFeedbacks(formData.get("curso_id"));
         this.reset();
     });
 });
-

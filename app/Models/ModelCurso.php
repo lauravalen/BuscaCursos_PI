@@ -30,13 +30,13 @@ class ModelCurso extends Model
 
     public function comentarios()
     {
-    return $this->hasMany(ModelComentario::class, 'CUR_INT_ID');
+        return $this->hasMany(ModelComentario::class, 'CUR_INT_ID');
     }
 
     public function plataformas()
     {
-    return $this->belongsToMany(ModelPlataforma::class, 'PLATAFORMACURSO', 'CUR_INT_ID', 'PLA_INT_ID')
-        ->withPivot(['PLC_STR_DATAINSERCAO', 'PLC_INT_SITUACAO']);
+        return $this->belongsToMany(ModelPlataforma::class, 'PLATAFORMACURSO', 'CUR_INT_ID', 'PLA_INT_ID')
+            ->withPivot(['PLC_STR_DATAINSERCAO', 'PLC_INT_SITUACAO']);
     }
 
     // Curso tem várias mentorias
@@ -55,5 +55,9 @@ class ModelCurso extends Model
     public function historicos()
     {
         return $this->hasMany(ModelHistorico::class, 'CUR_INT_ID', 'CUR_INT_ID');
+    }
+    public function feedbacks()
+    {
+        return $this->hasMany(ModelComentario::class, 'CUR_INT_ID', 'CUR_INT_ID');
     }
 }

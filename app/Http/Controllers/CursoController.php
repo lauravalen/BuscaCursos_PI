@@ -9,22 +9,24 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
-class CursoController extends Controller{
+class CursoController extends Controller
+{
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $query = ModelCurso::with(['areaCategoria.categoria', 'plataformas', 'favoritos']);
 
         if ($request->filled('busca')) {
             $texto = $request->busca;
 
-            $query->where(function($q) use ($texto) {
+            $query->where(function ($q) use ($texto) {
                 $q->where('CUR_STR_TITULO', 'LIKE', "%$texto%")
-                ->orWhere('CUR_STR_DESC', 'LIKE', "%$texto%")
-                
-                // Busca na ÁreaCategoria -> Categoria
-                ->orWhereHas('areaCategoria.categoria', function($cat) use ($texto) {
-                    $cat->where('CAT_STR_DESC', 'LIKE', "%$texto%");
-                });
+                    ->orWhere('CUR_STR_DESC', 'LIKE', "%$texto%")
+
+                    // Busca na ÁreaCategoria -> Categoria
+                    ->orWhereHas('areaCategoria.categoria', function ($cat) use ($texto) {
+                        $cat->where('CAT_STR_DESC', 'LIKE', "%$texto%");
+                    });
             });
         }
 
@@ -34,9 +36,10 @@ class CursoController extends Controller{
 
         return view('pages.pagesCursos', compact('cursos', 'categorias'));
     }
-    
-    public function feedbacksCurso($id){
-        
+
+    public function feedbacksCurso($id)
+    {
+
         $comentarios = ModelComentario::where('CUR_INT_ID', $id)
             ->where('COM_INT_SITUACAO', 1)
             ->orderBy('COM_INT_ID', 'DESC')
@@ -56,34 +59,36 @@ class CursoController extends Controller{
 
         return response()->json([
             'feedbacks' => $feedbacks,
-            'avaliacao' => $media ? round($media, 1) : null
+            'avaliacao' => $media !== null ? round(floatval($media), 1) : null
         ]);
     }
 
-    
-    public function salvarFeedback(Request $request, $id){
-        // Verifica usuário logado
-        if (!$request->session()->has('usuario_id')) {
+
+    public function salvarFeedback(Request $request)
+    {
+        // Verifica usuário logado — agora bate com o que sua view usa
+        if (!$request->session()->has('usuario')) {
             return response()->json(['error' => 'Faça login para comentar!'], 401);
         }
 
-        $userId = $request->session()->get('usuario_id');
-
+        $user = $request->session()->get('usuario');
 
         ModelComentario::create([
-            'USU_INT_ID' => $userId,
-            'CUR_INT_ID' => $id,
+            'USU_INT_ID' => $user->USU_INT_ID,
+            'CUR_INT_ID' => $request->curso_id,
             'COM_STR_COMENTARIO' => $request->comentario,
             'COM_INT_AVALIACAO' => $request->avaliacao,
             'COM_STR_DATAPUBLICACAO' => now(),
             'COM_INT_SITUACAO' => 1
         ]);
 
-        return response()->json(['message' => 'Comentário enviado com sucesso!']);
+        return redirect()->route('cursos.index');
     }
 
 
-    public function aplicarFiltros(Request $request){
+
+    public function aplicarFiltros(Request $request)
+    {
 
         $query = ModelCurso::with(['areaCategoria.categoria', 'plataformas', 'favoritos']);
 
@@ -91,7 +96,7 @@ class CursoController extends Controller{
         if ($request->filled('categoria')) {
             $categorias = $request->categoria;
 
-            $query->whereHas('areaCategoria.categoria', function($q) use ($categorias) {
+            $query->whereHas('areaCategoria.categoria', function ($q) use ($categorias) {
                 $q->whereIn('CAT_INT_ID', $categorias);
             });
         }
@@ -103,7 +108,7 @@ class CursoController extends Controller{
 
         // FILTRO POR DURAÇÃO
         if ($request->filled('duracao')) {
-            $query->where(function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
                 foreach ($request->duracao as $range) {
                     [$min, $max] = explode('-', $range);
                     $q->orWhereBetween('CUR_FLO_QUANTHORA', [$min, $max]);
@@ -111,8 +116,16 @@ class CursoController extends Controller{
             });
         }
 
-        // AVALIAÇÃO — fará depois, então deixei vazio
-        // if ($request->filled('avaliacao')) { ... }
+        // FILTRO POR AVALIAÇÃO
+        if ($request->filled('avaliacao')) {
+            $notas = $request->avaliacao; // agora é array
+
+            $query->whereHas('feedbacks', function ($q) use ($notas) {
+                $q->whereIn('COM_INT_AVALIACAO', $notas);
+            });
+        }
+
+
 
         $cursos = $query->paginate(6)->appends($request->all());
 
@@ -120,10 +133,10 @@ class CursoController extends Controller{
         $categorias = \App\Models\ModelCategoria::all();
 
         return view('pages.pagesCursos', compact('cursos', 'categorias'));
-    
     }
-    
-   public function buscar(Request $request){
+
+    public function buscar(Request $request)
+    {
         $texto = $request->get('q');
 
         $resultadosTitulo = ModelCurso::where('CUR_STR_TITULO', 'LIKE', "%$texto%")
@@ -135,10 +148,11 @@ class CursoController extends Controller{
             ->pluck('ACA_STR_NOME');
 
         return response()->json($resultadosTitulo->merge($resultadosCategoria));
-   }
+    }
 
 
-    public function limparFiltros(){
+    public function limparFiltros()
+    {
         return redirect()->route('cursos.index');
     }
 
@@ -151,13 +165,15 @@ class CursoController extends Controller{
 
     /*------adm-------*/
 
-    public function indexAdm(){
+    public function indexAdm()
+    {
         $cursos = ModelCurso::orderBy('CUR_STR_TITULO')->paginate(5);
-        return view('adm.CursoAdm', compact('cursos'));  
+        return view('adm.CursoAdm', compact('cursos'));
     }
-   
 
-    public function create(){
+
+    public function create()
+    {
         $areasCategorias = ModelAreaCategoria::with('categoria')
             ->where('ACA_INT_SITUACAO', 1)
             ->get();
@@ -165,7 +181,8 @@ class CursoController extends Controller{
         return view('adm.cadastros.CadCurso', compact('areasCategorias'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         ModelCurso::create([
             'CUR_STR_TITULO'       => $request->CUR_STR_TITULO,
@@ -184,37 +201,37 @@ class CursoController extends Controller{
 
 
     public function edit($id)
-{
-    $curso = ModelCurso::findOrFail($id);
-    return view('adm.editar.CursoEdit', compact('curso'));
-}
+    {
+        $curso = ModelCurso::findOrFail($id);
+        return view('adm.editar.CursoEdit', compact('curso'));
+    }
 
 
-public function update(Request $request, $id)
-{
-    $curso = ModelCurso::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $curso = ModelCurso::findOrFail($id);
 
-    $curso->CUR_STR_TITULO = $request->CUR_STR_TITULO;
-    $curso->CUR_STR_URL= $request->CUR_STR_URL;
-    $curso->CUR_STR_DESC = $request->CUR_STR_DESC;
+        $curso->CUR_STR_TITULO = $request->CUR_STR_TITULO;
+        $curso->CUR_STR_URL = $request->CUR_STR_URL;
+        $curso->CUR_STR_DESC = $request->CUR_STR_DESC;
 
-    $curso->save();
+        $curso->save();
 
-    return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
-}
+        return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
+    }
 
-// public function update(Request $request, $id)
-// {
-//     $curso = ModelCurso::findOrFail($id);
+    // public function update(Request $request, $id)
+    // {
+    //     $curso = ModelCurso::findOrFail($id);
 
-//     $curso->CUR_STR_TITULO = $request->CUR_STR_TITULO;
-//     $curso->CUR_STR_URL= $request->CUR_STR_URL;
-//     $curso->CUR_STR_DESC = $request->CUR_STR_DESC;
+    //     $curso->CUR_STR_TITULO = $request->CUR_STR_TITULO;
+    //     $curso->CUR_STR_URL= $request->CUR_STR_URL;
+    //     $curso->CUR_STR_DESC = $request->CUR_STR_DESC;
 
-//     $curso->save();
+    //     $curso->save();
 
-//     return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
-// }
+    //     return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
+    // }
 
-   
+
 }

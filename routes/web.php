@@ -31,7 +31,8 @@ Route::get('/cursos/limpar', [CursoController::class, 'limparFiltros'])->name('c
 Route::get('/cursos/{id}/feedbacks', [CursoController::class, 'feedbacksCurso']);
 
 // Salvar feedback
-Route::post('/feedbacks/salvar', [CursoController::class, 'salvarFeedback']);
+Route::post('/feedbacks/salvar', [CursoController::class, 'salvarFeedback'])
+    ->name('cursos.avaliar');
 
 
 //favoritos
