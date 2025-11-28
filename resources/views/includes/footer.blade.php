@@ -44,7 +44,6 @@
             <ul>
                 <li><a target="_blank" href="Pages/TermosUso.html">Termos de Uso</a></li>
                 <li><a target="_blank" href="Pages/PolPrivacidade.html">Política de Privacidade</a></li>
-                <li><a target="_blank" href="/CursoAdm">Administração</a></li>
 
             </ul>
 

@@ -14,19 +14,20 @@ use App\Models\ModelEstado;
 use App\Models\ModelCidade;
 use App\Models\ModelGenero;
 use App\Models\ModelAreaAtuacao;
+use App\Models\ModelAdministrador;
+
 
 class ControllerUsuario extends Controller
 {
 
-public function create()
+    public function create()
     {
         $estados = ModelEstado::all();
         $cidades = ModelCidade::all();
         $generos = ModelGenero::all();
         $areas   = ModelAreaAtuacao::all();
-        
-        return view('adm.cadastros.CadUser', compact('estados', 'cidades', 'generos', 'areas'));
 
+        return view('adm.cadastros.CadUser', compact('estados', 'cidades', 'generos', 'areas'));
     }
     public function index()
     {
@@ -36,11 +37,10 @@ public function create()
         $areas   = ModelAreaAtuacao::all();
         $users = ModelUsuario::orderBy('USU_STR_NOME')->paginate(4);
 
-        return view('adm.UserAdm', compact('estados', 'cidades', 'generos', 'areas','users'));
-
+        return view('adm.UserAdm', compact('estados', 'cidades', 'generos', 'areas', 'users'));
     }
 
-     public function cadastroUser()
+    public function cadastroUser()
     {
         $estados = ModelEstado::all();
         $cidades = ModelCidade::all();
@@ -48,98 +48,103 @@ public function create()
         $areas   = ModelAreaAtuacao::all();
         $users = ModelUsuario::orderBy('USU_STR_NOME')->paginate(4);
 
-        return view('pages.Cadastro', compact('estados', 'cidades', 'generos', 'areas','users'));
+        return view('pages.Cadastro', compact('estados', 'cidades', 'generos', 'areas', 'users'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-    $request->validate([
-        'senha_confirmacao'=> 'required|same:USU_STR_SENHA'
-    ]);
+        $request->validate([
+            'senha_confirmacao' => 'required|same:USU_STR_SENHA'
+        ]);
 
-    $usuario = new ModelUsuario();
+        $usuario = new ModelUsuario();
 
-    $usuario->USU_STR_NOME       = $request->USU_STR_NOME;
-    $usuario->USU_STR_EMAIL      = $request->USU_STR_EMAIL;
+        $usuario->USU_STR_NOME       = $request->USU_STR_NOME;
+        $usuario->USU_STR_EMAIL      = $request->USU_STR_EMAIL;
 
-    $usuario->EST_INT_ID         = $request->EST_INT_ID;
-    $usuario->CID_INT_ID         = $request->CID_INT_ID;
-    $usuario->GEN_INT_ID         = $request->GEN_INT_ID;
-    $usuario->AAT_INT_ID         = $request->AAT_INT_ID;
+        $usuario->EST_INT_ID         = $request->EST_INT_ID;
+        $usuario->CID_INT_ID         = $request->CID_INT_ID;
+        $usuario->GEN_INT_ID         = $request->GEN_INT_ID;
+        $usuario->AAT_INT_ID         = $request->AAT_INT_ID;
 
-    $usuario->USU_STR_SENHA      = Hash::make($request->USU_STR_SENHA);
-    $usuario->USU_STR_INSERCAO   = Carbon::now();
-    $usuario->USU_INT_SITUACAO   = 1; 
+        $usuario->USU_STR_SENHA      = Hash::make($request->USU_STR_SENHA);
+        $usuario->USU_STR_INSERCAO   = Carbon::now();
+        $usuario->USU_INT_SITUACAO   = 1;
 
-    $usuario->save();
+        $usuario->save();
 
-    return redirect('/Login')->with('success', 'Cadastro realizado com sucesso!');
-}
+        return redirect('/Login')->with('success', 'Cadastro realizado com sucesso!');
+    }
 
-public function storeAdm(Request $request)
+    public function storeAdm(Request $request)
+    {
+        $request->validate([
+            'senha_confirmacao' => 'required|same:USU_STR_SENHA'
+        ]);
+
+        $usuario = new ModelUsuario();
+
+        $usuario->USU_STR_NOME       = $request->USU_STR_NOME;
+        $usuario->USU_STR_EMAIL      = $request->USU_STR_EMAIL;
+
+        $usuario->EST_INT_ID         = $request->EST_INT_ID;
+        $usuario->CID_INT_ID         = $request->CID_INT_ID;
+        $usuario->GEN_INT_ID         = $request->GEN_INT_ID;
+        $usuario->AAT_INT_ID         = $request->AAT_INT_ID;
+
+        $usuario->USU_STR_SENHA      = Hash::make($request->USU_STR_SENHA);
+        $usuario->USU_STR_INSERCAO   = Carbon::now();
+        $usuario->USU_INT_SITUACAO   = 1;
+
+        $usuario->save();
+
+        return redirect('/CadUser')->with('success', 'Cadastro realizado com sucesso!');
+    }
+
+   public function loginUser(Request $request)
 {
-    $request->validate([
-        'senha_confirmacao'=> 'required|same:USU_STR_SENHA'
-    ]);
+    // 1. Tenta encontrar um ADMINISTRADOR
+    $admin = \App\Models\ModelAdministrador::where('ADM_STR_EMAIL', $request->email)->first();
 
-    $usuario = new ModelUsuario();
+    if ($admin && Hash::check($request->senha, $admin->ADM_STR_SENHA)) {
+        // guarda na sessão com outro nome
+        Session::put('admin', $admin);
+        return redirect('/HomeAdm'); // ou sua rota do painel ADM
+    }
 
-    $usuario->USU_STR_NOME       = $request->USU_STR_NOME;
-    $usuario->USU_STR_EMAIL      = $request->USU_STR_EMAIL;
+    // 2. Tenta encontrar um USUÁRIO NORMAL
+    $usuario = ModelUsuario::where('USU_STR_EMAIL', $request->email)->first();
 
-    $usuario->EST_INT_ID         = $request->EST_INT_ID;
-    $usuario->CID_INT_ID         = $request->CID_INT_ID;
-    $usuario->GEN_INT_ID         = $request->GEN_INT_ID;
-    $usuario->AAT_INT_ID         = $request->AAT_INT_ID;
+    if ($usuario && Hash::check($request->senha, $usuario->USU_STR_SENHA)) {
+        Session::put('usuario', $usuario);
+        return redirect('/perfil');
+    }
 
-    $usuario->USU_STR_SENHA      = Hash::make($request->USU_STR_SENHA);
-    $usuario->USU_STR_INSERCAO   = Carbon::now();
-    $usuario->USU_INT_SITUACAO   = 1; 
-
-    $usuario->save();
-
-    return redirect('/CadUser')->with('success', 'Cadastro realizado com sucesso!');
+    // 3. Se não for nem ADM nem usuário comum
+    return back()->with('erro', 'Credenciais inválidas!');
 }
 
-    public function loginUser(Request $request){
 
-        // busca o usuário pelo e-mail
-        $usuario = ModelUsuario::where('USU_STR_EMAIL', $request->email)->first();
-
-        if ($usuario) {
-            // verifica a senha criptografada
-            if (Hash::check($request->senha, $usuario->USU_STR_SENHA)) {
-                Session::put('usuario', $usuario);
-                return redirect('/perfil');
-            } else {
-                return response()->json([
-                    'mensagem' => 'Senha incorreta!',
-                ], 201);
-            }
-        } else {
-            return response()->json([
-                'mensagem' => 'Usuário não encontrado!',
-            ], 201);
-        }
-        
-    }
 
 
     // Faz logout
     public function logout()
     {
         Session::forget('usuario');
+        Session::forget('admin');
         return redirect('/Login');
     }
 
+
     public function desativar(Request $request, $id)
-{
-    $user = ModelUsuario::findOrFail($id);
+    {
+        $user = ModelUsuario::findOrFail($id);
 
-    $user->USU_INT_SITUACAO = 0; 
+        $user->USU_INT_SITUACAO = 0;
 
-    $user->save();
+        $user->save();
 
-    return redirect('/CadUser')->with('success', 'Cadastro realizado com sucesso!');
-}
+        return redirect('/CadUser')->with('success', 'Cadastro realizado com sucesso!');
+    }
 }
