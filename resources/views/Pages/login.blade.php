@@ -23,7 +23,7 @@
             </form>
 
             <div class="div-linkcad">
-                 <a href="/Cadastro" class="link-cad"><p>Não possue cadastro?Clique aqui.</p></a>
+                 <a href="/Cadastro" class="link-cad"><p>Não possui cadastro? Clique aqui.</p></a>
             </div>
 
         </section>
