@@ -148,8 +148,25 @@
                             @endif
                         </div>
 
-                        <img src="../assets/images/img-curso-tecnologia.png"
-                            alt="imagem do curso {{ $curso->CUR_STR_TITULO }}">
+                      @php
+    // pega o nome CERTINHO da categoria
+    $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
+
+    // remove espaços e acentos se quiser
+    $categoria = \Illuminate\Support\Str::slug($categoria, '-');
+
+    // caminhos
+    $pathImagem = public_path("assets/images/{$categoria}.png");
+    $imgUrl = asset("assets/images/{$categoria}.png");
+
+    $defaultImg = asset("assets/images/img-curso-TI.png");
+@endphp
+
+<img
+    src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
+    alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}"
+>
+
                     </div>
 
                     <h3>{{ $curso->CUR_STR_TITULO }}</h3>
