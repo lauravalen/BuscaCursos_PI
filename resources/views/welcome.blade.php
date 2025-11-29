@@ -12,8 +12,8 @@
         </div>
 
         <div class="div-search">
-            <form action=" " method="post" autocomplete="off">
-                <input type="text" id="barraDeBusca" placeholder="    DIGITE SUA BUSCA" required>
+            <form action="{{ route('cursos.index') }}" method="GET" autocomplete="off">
+                <input type="text" name="busca" id="barraDeBusca" placeholder="    DIGITE SUA BUSCA" required>
                 <div id="sugestoes" class="sugestoes-container"></div>
 
             </form>
@@ -25,20 +25,19 @@
 
         <!-- categorias -->
         <div class="div-categoria">
-
             <ul>
                 <li><a href="/Cursos">todos os cursos</a></li>
-                <li><a href="">programação</a></li>
-                <li><a href="">banco de dados</a></li>
-                <li><a href="">gestão e negócios</a></li>
-                <li><a href="">línguas estrangeiras</a></li>
-                <li><a href="">design e ilustração</a></li>
-                <li><a href="">inteligência artificial</a></li>
-                <li><a href="">saúde</a></li>
-                <li><a href="">marketing</a></li>
-            </ul>
 
+                @foreach($categorias as $categoria)
+                <li>
+                    <a href="{{ route('cursos.filtrar') }}?categoria[]={{ $categoria->CAT_INT_ID }}">
+                        {{ strtolower($categoria->CAT_STR_DESC) }}
+                    </a>
+                </li>
+                @endforeach
+            </ul>
         </div>
+
 
         <!-- Acesso Rapido -->
         <div class="div-acesso">
@@ -122,20 +121,18 @@
         <div class="teste-vocac-index">
             <h2>Teste Vocacional</h2>
             <p>Descubra o curso ideal para você!</p>
-        
+
             @if(Session::has('usuario'))
             <!-- Se estiver logado -->
-                <input id="faca-teste" type="button" value="FAÇA O TESTE"
-                   onclick="location.href='/TesteVocacional'"
-                >
-             @else
+            <input id="faca-teste" type="button" value="FAÇA O TESTE"
+                onclick="location.href='/TesteVocacional'">
+            @else
             <!-- Se não estiver logado -->
-            <input id="faca-teste" type="button" value="FAÇA O TESTE" 
-                onclick="if(confirm('Você precisa fazer login para acessar o teste vocacional.\nDeseja ir para a tela de login agora?')) { location.href='/Login'; }"            
-            >
+            <input id="faca-teste" type="button" value="FAÇA O TESTE"
+                onclick="if(confirm('Você precisa fazer login para acessar o teste vocacional.\nDeseja ir para a tela de login agora?')) { location.href='/Login'; }">
 
-            @endif       
-     </div>
+            @endif
+        </div>
 
     </div>
 

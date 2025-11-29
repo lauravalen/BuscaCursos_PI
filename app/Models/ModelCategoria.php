@@ -14,7 +14,7 @@ protected $table = 'CATEGORIA';
     protected $fillable = [
         'CAT_INT_ID',
         'CAT_STR_DESC',
-        'CAT_STR_DESC'
+        'CAT_STR_INSERCAO'
     ];
 
 

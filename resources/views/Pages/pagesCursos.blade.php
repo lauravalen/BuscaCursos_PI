@@ -105,7 +105,7 @@
             </div>
 
             <button type="submit" class="bt-aplicar-filtro">Aplicar Filtro</button>
-            </forms>
+        </form>
     </div>
 
     <!--Cursos -->
@@ -186,7 +186,7 @@
                     << </span>
                         @else
                         <a class="pag" href="{{ $cursos->previousPageUrl() }}">
-                            <<< /a>
+                            << </a>
                                 @endif
 
                                 <p>Página {{ $cursos->currentPage() }} de {{ $cursos->lastPage() }}</p>

@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\ModelCurso;
 use App\Models\ModelComentario;
 use App\Models\ModelAreaCategoria;
+use App\Models\ModelCategoria;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
+
+    public function welcome()
+    {
+        $categorias = ModelCategoria::all();
+
+        return view('welcome', compact('categorias'));
+    }
 
     public function index(Request $request)
     {
