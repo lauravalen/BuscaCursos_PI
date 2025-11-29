@@ -70,10 +70,18 @@ Route::get('/TesteVocacional', function () {
     return view('pages.testeVocac');
 });
 
+
+
+
+
 // -- Pagina de Administração --//
 
 Route::get('/HomeAdm', function () {
     return view('adm.index');
+});
+
+Route::get('/perfilAdm', function () {
+    return view('adm.PerfilAdm');
 });
 
 // Route::get('/CursoAdm', function () {
@@ -126,9 +134,9 @@ Route::post('/cadastro/salvar', [ControllerUsuario::class, 'storeAdm'])->name('c
 Route::post('/User/{id}/desativar', [CursoController::class, 'desativar'])->name('user.desativarUser');
 
 
-// Route::get('/CadAdm', function () {
-//     return view('adm.cadastros.CadAdm');
-// });
+Route::get('/CadAdm', function () {
+    return view('adm.cadastros.CadAdm');
+});
 
 Route::post('/CadastroADM', [ControllerAdministrador::class, 'store'])->name('cadastroAdm.store');
 
