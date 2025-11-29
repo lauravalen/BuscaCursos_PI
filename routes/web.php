@@ -29,6 +29,10 @@ Route::get('/cursos/filtrar', [CursoController::class, 'aplicarFiltros'])->name(
 
 Route::get('/cursos/limpar', [CursoController::class, 'limparFiltros'])->name('cursos.limpar');
 
+Route::get('/curso/acessar/{id}', [CursoController::class, 'registrarAcesso'])
+    ->name('curso.acessar');
+
+
 // Buscar feedbacks de um curso
 Route::get('/cursos/{id}/feedbacks', [CursoController::class, 'feedbacksCurso']);
 

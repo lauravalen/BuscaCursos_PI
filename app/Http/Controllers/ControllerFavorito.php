@@ -6,20 +6,41 @@ use Illuminate\Http\Request;
 use App\Models\ModelFavorito;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use App\Models\ModelHistorico;
+use App\Models\ModelCurso;
+
 
 class ControllerFavorito extends Controller{
 
-   public function index(){
-        $usuario = session('usuario');
+  public function index()
+{
+    $usuario = session('usuario');
 
-        // Busca apenas os favoritos do usuário logado
-    $favoritos = ModelFavorito::with('curso')
-        ->where('USU_INT_ID', $usuario->USU_INT_ID)
-        ->where('FAV_INT_ATIVO', 1)
-        ->get();
+    // Favoritos
+    $favoritos = ModelFavorito::with([
+        'curso.areaCategoria.categoria'
+    ])
+    ->where('USU_INT_ID', $usuario->USU_INT_ID)
+    ->where('FAV_INT_ATIVO', 1)
+    ->get();
 
-        return view('pages.Perfil', compact('favoritos'));
-    }
+    // Recentes
+    $recentes = ModelHistorico::with([
+        'curso.areaCategoria.categoria'
+    ])
+    ->where('USU_INT_ID', $usuario->USU_INT_ID)
+    ->where('HIS_STR_DESCRICAO', 'Acessou o curso')
+    ->orderBy('HIS_STR_INSERCAO', 'DESC')
+    ->limit(8)
+    ->get()
+    ->pluck('curso')
+    ->filter()
+    ->values();
+
+    return view('pages.Perfil', compact('favoritos', 'recentes'));
+}
+
+
 
 
     public function toggle($cursoId){

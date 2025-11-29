@@ -29,6 +29,7 @@ class ModelHistorico extends Model
         return $this->belongsTo(ModelCurso::class, 'CUR_INT_ID', 'CUR_INT_ID');
     }
 
+
     public function areaCategoria()
     {
         return $this->belongsTo(ModelAreaCategoria::class, 'ACA_INT_ID', 'ACA_INT_ID');

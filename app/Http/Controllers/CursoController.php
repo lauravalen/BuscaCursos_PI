@@ -7,7 +7,7 @@ use App\Models\ModelComentario;
 use App\Models\ModelAreaCategoria;
 use App\Models\ModelCategoria;
 use Carbon\Carbon;
-
+use App\Models\ModelHistorico;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -228,18 +228,30 @@ class CursoController extends Controller
         return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $curso = ModelCurso::findOrFail($id);
+   public function registrarAcesso($id)
+{
+    $curso = ModelCurso::findOrFail($id);
 
-    //     $curso->CUR_STR_TITULO = $request->CUR_STR_TITULO;
-    //     $curso->CUR_STR_URL= $request->CUR_STR_URL;
-    //     $curso->CUR_STR_DESC = $request->CUR_STR_DESC;
+    // puxa o usuário corretamente da sessão
+    $usuario = session('usuario');
+    $usuarioId = $usuario ? $usuario->USU_INT_ID : null;
 
-    //     $curso->save();
+    if (!$usuarioId) {
+        return redirect()->away($curso->CUR_STR_URL);
+    }
 
-    //     return redirect()->route('curso.indexadm')->with('success', 'Curso atualizado com sucesso!');
-    // }
+    ModelHistorico::create([
+        'HIS_STR_DESCRICAO' => 'Acessou o curso',
+        'HIS_STR_INSERCAO' => now(),
+
+        'PLC_INT_ID' => $curso->PLC_INT_ID ?: 1,
+        'USU_INT_ID' => $usuarioId,
+        'CUR_INT_ID' => $curso->CUR_INT_ID,
+        'ACA_INT_ID' => $curso->ACA_INT_ID ?: 1,
+    ]);
+
+    return redirect()->away($curso->CUR_STR_URL);
+}
 
 
 }

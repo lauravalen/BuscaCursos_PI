@@ -13,14 +13,6 @@
                 <h3>Recentes</h3>
                 <hr>
             </div>
-            <div class="div-catePerfil" data-section="recomendados">
-                <h3>Recomendados</h3>
-                <hr>
-            </div>
-            <div class="div-catePerfil" data-section="concluidos">
-                <h3>Concluídos</h3>
-                <hr>
-            </div>
             <div class="div-catePerfil" data-section="configuracoes">
                 <h3>Configurações</h3>
                 <hr>
@@ -31,127 +23,157 @@
         <!-- FAVORITOS -->
         <div id="favoritos" class="conteudo ativo">
             @forelse($favoritos as $favorito)
-                <div class="div-cursos-perfil">
-                    <div class="card_curso-perfil" data-categoria="dados">
-                        <div class="image_curso">
-                            <div class="rating-perfil">
-                                <form action="{{ route('favoritos.toggle', $favorito->curso->CUR_INT_ID) }}" method="POST">
-                                    @csrf
-                                    <input
-                                        type="checkbox"
-                                        name="favorito"
-                                        id="star{{ $favorito->curso->CUR_INT_ID }}"
-                                        value="1"
-                                        {{ $favorito->FAV_INT_ATIVO ? 'checked' : '' }}
-                                        onchange="this.form.submit()"
-                                    >
-                                    <label for="star{{ $favorito->curso->CUR_INT_ID }}"></label>
-                                </form>
-                            </div>
-
-                            <img src="../assets/images/img-curso-tecnologia.png" alt="imagem do curso {{ $favorito->curso->CUR_STR_TITULO }}">
-                        </div>
-
-                        <h3>{{ $favorito->curso->CUR_STR_TITULO }}</h3>
-                        <p class="descricao">{{ $favorito->curso->CUR_STR_DESC }}</p>
-
-                        <div class="info-curso">
-                            <div class="botoes">
-                                <a href="{{ $favorito->curso->CUR_STR_URL }}" target="_blank">Ir para curso</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <p style="text-align: center;">Nenhum curso favoritado ainda.</p>
-            @endforelse
-
-
-        </div>
-
-        <!-- recentes -->
-        <div id="recentes" class="conteudo">
-            <p style="text-align: center;">nenhum curso foi acessado.</p>
-        </div>
-        <!-- recomendados -->
-        <div id="recomendados" class="conteudo">
-
             <div class="div-cursos-perfil">
                 <div class="card_curso-perfil" data-categoria="dados">
                     <div class="image_curso">
                         <div class="rating-perfil">
-                            <input value="1" name="rating-perfil" id="star1" type="radio">
-                            <label for="star1"></label>
+                            <form action="{{ route('favoritos.toggle', $favorito->curso->CUR_INT_ID) }}" method="POST">
+                                @csrf
+                                <input
+                                    type="checkbox"
+                                    name="favorito"
+                                    id="star{{ $favorito->curso->CUR_INT_ID }}"
+                                    value="1"
+                                    {{ $favorito->FAV_INT_ATIVO ? 'checked' : '' }}
+                                    onchange="this.form.submit()">
+                                <label for="star{{ $favorito->curso->CUR_INT_ID }}"></label>
+                            </form>
                         </div>
-                        <img src="../assets/images/img-curso-SI.png"
-                            alt="imagem do curso sistemas da informação">
-                    </div>
 
-                    <h3>Segurança da Informação: Módulo 00</h3>
-                    <p class="descricao">Curso introdutório sobre segurança da informação, baseado na cartilha
-                        CERT.br e exemplos práticos.</p>
-                    <div class="info-curso">
-                        <div class="botoes">
-                            <a href="https://www.cursoemvideo.com/curso/seguranca-da-informacao-modulo-00/"
-                                target="_blank">Ir para curso</a>
-                        </div>
+                        @php
+                        // pega o nome CERTINHO da categoria
+                        $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
+
+                        // remove espaços e acentos se quiser
+                        $categoria = \Illuminate\Support\Str::slug($categoria, '-');
+
+                        // caminhos
+                        $pathImagem = public_path("assets/images/{$categoria}.png");
+                        $imgUrl = asset("assets/images/{$categoria}.png");
+
+                        $defaultImg = asset("assets/images/img-curso-TI.png");
+                        @endphp
+
+                        <img
+                            src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
+                            alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}">
+
+                    </div>
+                </div>
+
+                <h3>{{ $favorito->curso->CUR_STR_TITULO }}</h3>
+                <p class="descricao">{{ $favorito->curso->CUR_STR_DESC }}</p>
+
+                <div class="info-curso">
+                    <div class="botoes">
+                        <a href="{{ $favorito->curso->CUR_STR_URL }}" target="_blank">Ir para curso</a>
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- concluidos -->
-        <div id="concluidos" class="conteudo">
-            <p style="text-align: center;">Não tem cursos finalizados</p>
+        @empty
+        <p style="text-align: center;">Nenhum curso favoritado ainda.</p>
+        @endforelse
+
+
+    </div>
+
+    <!-- recentes -->
+    <div id="recentes" class="conteudo">
+
+        @forelse($recentes as $curso)
+        <div class="div-cursos-perfil">
+            <div class="card_curso-perfil">
+                <div class="image_curso">
+
+                    @php
+                    // pega o nome CERTINHO da categoria
+                    $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
+
+                    // remove espaços e acentos se quiser
+                    $categoria = \Illuminate\Support\Str::slug($categoria, '-');
+
+                    // caminhos
+                    $pathImagem = public_path("assets/images/{$categoria}.png");
+                    $imgUrl = asset("assets/images/{$categoria}.png");
+
+                    $defaultImg = asset("assets/images/img-curso-TI.png");
+                    @endphp
+
+                    <img
+                        src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
+                        alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}">
+
+                </div>
+
+                <h3>{{ $curso->CUR_STR_TITULO }}</h3>
+                <p class="descricao">{{ $curso->CUR_STR_DESC }}</p>
+
+                <div class="info-curso">
+                    <div class="botoes">
+                        <a href="{{ route('curso.acessar', $curso->CUR_INT_ID) }}" target="_blank">
+                            Ir para curso
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- CONFIGURAÇOES -->
-        <div class="div-config-perfil">
-            <div id="configuracoes" class="conteudo">
+        @empty
+        <p style="text-align: center;">nenhum curso foi acessado.</p>
+        @endforelse
 
-                <div class="div-acao">
-                    <form action="/TesteVocacional" method="GET" >
-                        @csrf
-                        <button type="submit" class="botao-deslog">TESTE VOCACIONAL</button>
-                    </form>
-                </div>
+    </div>
 
-                <div class="div-acao">
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <button type="submit" class="botao-deslog">EDITAR PERFIL</button>
-                    </form>
-                </div>
+    </div>
 
-                <div class="div-acao">
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <button type="submit" class="botao-deslog">ACESSIBILIDADE</button>
-                    </form>
-                </div>
-                <div class="div-acao">
-                    <form action="/faq" method="GET" >
-                        @csrf
-                        <button type="submit" class="botao-deslog">DUVIDAS?</button>
-                    </form>
-                </div>
+    <!-- CONFIGURAÇOES -->
+    <div class="div-config-perfil">
+        <div id="configuracoes" class="conteudo">
 
-                <div class="div-acao-deslog">
-                    <form action="/logout" method="POST" >
-                        @csrf
-                        <button type="submit" class="botao-deslog">DESCONECTAR</button>
-                    </form>
-                </div>
+            <div class="div-acao">
+                <form action="/TesteVocacional" method="GET">
+                    @csrf
+                    <button type="submit" class="botao-deslog">TESTE VOCACIONAL</button>
+                </form>
+            </div>
 
-                <div class="div-acao-destiv">
-                    <form action="/logout" method="POST" >
-                        @csrf
-                        <button type="submit" class="botao-deslog">DESATIVAR CONTA</button>
-                    </form>
-                </div>
+            <div class="div-acao">
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="botao-deslog">EDITAR PERFIL</button>
+                </form>
+            </div>
 
+            <div class="div-acao">
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="botao-deslog">ACESSIBILIDADE</button>
+                </form>
+            </div>
+            <div class="div-acao">
+                <form action="/faq" method="GET">
+                    @csrf
+                    <button type="submit" class="botao-deslog">DUVIDAS?</button>
+                </form>
+            </div>
+
+            <div class="div-acao-deslog">
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="botao-deslog">DESCONECTAR</button>
+                </form>
+            </div>
+
+            <div class="div-acao-destiv">
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="botao-deslog">DESATIVAR CONTA</button>
+                </form>
             </div>
 
         </div>
+
+    </div>
 
     </div>
 </main>

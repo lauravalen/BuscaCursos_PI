@@ -148,24 +148,23 @@
                             @endif
                         </div>
 
-                      @php
-    // pega o nome CERTINHO da categoria
-    $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
+                        @php
+                        // pega o nome CERTINHO da categoria
+                        $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
 
-    // remove espaços e acentos se quiser
-    $categoria = \Illuminate\Support\Str::slug($categoria, '-');
+                        // remove espaços e acentos se quiser
+                        $categoria = \Illuminate\Support\Str::slug($categoria, '-');
 
-    // caminhos
-    $pathImagem = public_path("assets/images/{$categoria}.png");
-    $imgUrl = asset("assets/images/{$categoria}.png");
+                        // caminhos
+                        $pathImagem = public_path("assets/images/{$categoria}.png");
+                        $imgUrl = asset("assets/images/{$categoria}.png");
 
-    $defaultImg = asset("assets/images/img-curso-TI.png");
-@endphp
+                        $defaultImg = asset("assets/images/img-curso-TI.png");
+                        @endphp
 
-<img
-    src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
-    alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}"
->
+                        <img
+                            src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
+                            alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}">
 
                     </div>
 
@@ -174,9 +173,12 @@
 
                     <div class="info-curso">
                         <div class="botoes">
-                            <a href="{{ $curso->CUR_STR_URL }}" target="_blank">Ir para curso</a>
+                            <a href="{{ route('curso.acessar', $curso->CUR_INT_ID) }}" target="_blank">
+                                Ir para curso
+                            </a>
+
+
                         </div>
-                        <!-- <a href="#" class="avaliacao">(4,2)★★★★☆</a> -->
                         <a class="avaliacao"
                             data-id="{{ $curso->CUR_INT_ID }}"
                             data-titulo="{{ $curso->CUR_STR_TITULO }}"
