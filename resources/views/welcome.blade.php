@@ -122,7 +122,7 @@
             <h2>Teste Vocacional</h2>
             <p>Não sabe por onde começar? Deixe que nosso teste te guie!
             <br>
-            Responda algumas perguntas e encontre a carreira perfeita para seu perfil.</p>
+            Responda algumas perguntas e encontre a carreira perfeita para você.</p>
             <img src="../assets/images/imgTest3.jpg" alt="Imagem representando o teste vocacional">
         </div>
                     
