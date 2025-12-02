@@ -11,7 +11,7 @@
     }
   ],
   "build": {
-    "buildCommand": "composer install" 
+    "buildCommand": "npm install && npm run build && composer install"
   },
-  "outputDirectory": "public" 
+  "outputDirectory": "public"
 }
