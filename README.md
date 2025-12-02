@@ -45,5 +45,9 @@ Esse projeto está sob a licença MIT.
 - Natália Garces [@Natgalia98](https://github.com/Natgalia98)
 - Natália Doreto [@Dorettto](https://github.com/Dorettto)
 
+<<<<<<< HEAD
 <!-- ![Screenshot do Site ](ImgProjetos/TelaHome.jpg) -->
+=======
+![Screenshot do Site ](ImgProjetos/TelaHome.jpg)
+>>>>>>> 0ed019d46c743e546a230d0148c833457f9041a5
 
