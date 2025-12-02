@@ -6,12 +6,12 @@
   },
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/.*",
       "dest": "/api/index.php"
     }
   ],
   "build": {
     "buildCommand": "npm install && npm run build && composer install"
   },
-  "outputDirectory": "public"
+  "outputDirectory": "public" 
 }
