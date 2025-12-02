@@ -11,7 +11,7 @@
     }
   ],
   "build": {
-    "buildCommand": "composer install"
+    "buildCommand": "composer install" 
   },
   "outputDirectory": "public" 
 }
