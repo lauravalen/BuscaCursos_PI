@@ -8,10 +8,10 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ControllerFavorito;
 use App\Http\Controllers\ControllerPlataforma;
 
- Route::get('/', function () {
-    return view('welcome');
- });
-//Route::get('/', [CursoController::class, 'welcome']);
+//  Route::get('/', function () {
+//     return view('welcome');
+//  });
+Route::get('/', [CursoController::class, 'welcome']);
 
 
 //Cadastros
