@@ -7,6 +7,7 @@ use App\Http\Controllers\ControllerUsuario;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ControllerFavorito;
 use App\Http\Controllers\ControllerPlataforma;
+use App\Http\Controllers\ControllerTesteVocacional;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -26,6 +27,7 @@ Route::post('/logout', [ControllerUsuario::class, 'logout'])->name('logout');
 Route::get('/Cursos', [CursoController::class, 'index'])->name('cursos.index');
 
 Route::get('/cursos/filtrar', [CursoController::class, 'aplicarFiltros'])->name('cursos.filtrar');
+
 
 Route::get('/cursos/limpar', [CursoController::class, 'limparFiltros'])->name('cursos.limpar');
 
@@ -76,6 +78,9 @@ Route::get('/TesteVocacional', function () {
     return view('pages.testeVocac');
 });
 
+Route::post('/teste-vocacional/processar', [ControllerTesteVocacional::class, 'processarResultado'])
+    ->name('teste.processar');
+
 
 
 
@@ -112,16 +117,12 @@ Route::post('/curso/salvar', [CursoController::class, 'store'])->name('curso.sto
 
 // EDITAR
 Route::get('/Curso/{id}/editar', [CursoController::class, 'edit'])->name('curso.edit');
-Route::post('/Curso/{id}/editar', [CursoController::class, 'update'])->name('curso.update');
+Route::put('/Curso/{id}/editar', [CursoController::class, 'update'])->name('curso.update');
 
 // DESATIVAR
-Route::post('/Curso/{id}/desativar', [CursoController::class, 'desativar'])->name('curso.desativar');
+Route::get('/Curso/{id}/desativar', [CursoController::class, 'desativar'])->name('curso.desativar');
 
-//
 
-// Route::get('/CadPlataforma', function () {
-//     return view('adm.cadastros.CadPlataforma');
-// });
 
 Route::get('CadPlataforma', [ControllerPlataforma::class, 'create'])
     ->name('plataforma.create');
@@ -131,13 +132,10 @@ Route::post('/plataforma/salvar', [ControllerPlataforma::class, 'store'])
 
 
 
-// Route::get('/CadUser', function () {
-//     return view('adm.cadastros.CadUser');
-// });
 Route::get('/CadUser', [ControllerUsuario::class, 'create'])->name('cadastro.user');
 Route::post('/cadastro/salvar', [ControllerUsuario::class, 'storeAdm'])->name('cadastro.storeAdm');
 
-Route::post('/User/{id}/desativar', [CursoController::class, 'desativar'])->name('user.desativarUser');
+Route::get('/User/{id}/desativar', [CursoController::class, 'desativar'])->name('user.desativarUser');
 
 
 Route::get('/CadAdm', function () {

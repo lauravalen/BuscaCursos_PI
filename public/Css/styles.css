@@ -1370,16 +1370,15 @@ background-image: url('../assets/images/fundo_buscaCursos.jpg');}
     font-family: vietnam;
     color: var(--branco-bege);
     font-size: 1rem;
-    background-color: var(--azul-normal);
+    background-color: transparent;
     border: none;
     border-radius: 10px;
     padding: 12px 25px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s;
 }
 #res-teste:hover {
-    background-color: #1a5ca3;
+    background-color: #071a51;
 }
 
 .teste-vocac-index h2{
@@ -1633,4 +1632,97 @@ opacity: 0.8;
       display:flex; 
     flex-direction: row;
     gap:15px
+}
+
+.bt-testeVc{
+    background-color: var(--azul-normal); 
+    color: white; 
+    padding: 6px 16px; 
+    border: 1px solid var(--branco); 
+    border-radius: 1.7rem;
+    cursor: pointer;
+    width:150px;
+    height:70px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: vietnam;
+}
+.bt-testeVc:hover{
+    width:160px;
+    height:75px;
+    transition: 0.5s;
+}
+
+/* Centralizar modais vertical e horizontalmente */
+.modal.fade .modal-dialog {
+    display: flex;
+    align-items: center; /* vertical */
+    justify-content: center; /* horizontal */
+    min-height: 100vh; /* garante ocupar a tela inteira */
+    margin: 0;
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: #1e1e1e; /* fundo escuro */
+    color: #f1f1f1; /* texto claro */
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+
+/* Título */
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Corpo do modal */
+.modal-body {
+    padding: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Links dentro do modal */
+.modal-body a {
+    color: #0d6efd; /* azul do bootstrap */
+    text-decoration: underline;
+}
+
+/* Footer do modal */
+.modal-footer {
+    border-top: 1px solid #444;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botão fechar customizado */
+.btn-fechar-vermelho {
+    background-color: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-fechar-vermelho:hover {
+    color: #ff0000;
+}
+
+/* Responsivo: modal menor em telas pequenas */
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: 90%;
+    }
 }

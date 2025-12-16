@@ -108,9 +108,8 @@ class ControllerUsuario extends Controller
     $admin = \App\Models\ModelAdministrador::where('ADM_STR_EMAIL', $request->email)->first();
 
     if ($admin && Hash::check($request->senha, $admin->ADM_STR_SENHA)) {
-        // guarda na sessão com outro nome
         Session::put('admin', $admin);
-        return redirect('/HomeAdm'); // ou sua rota do painel ADM
+        return redirect('/CursoAdm'); 
     }
 
     // 2. Tenta encontrar um USUÁRIO NORMAL

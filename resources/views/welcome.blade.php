@@ -123,7 +123,7 @@
             <p>Não sabe por onde começar? Deixe que nosso teste te guie!
             <br>
             Responda algumas perguntas e encontre a carreira perfeita para seu perfil.</p>
-            <img src="../assets/images/imgTest3.jpg" alt="Imagem representando o teste vocacional">
+            <img src="../assets/images/Negocios.jpg" alt="Imagem representando o teste vocacional">
         </div>
                     
             @if(Session::has('usuario'))
