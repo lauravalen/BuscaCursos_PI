@@ -41,6 +41,54 @@
                         </div>
 
                         @php
+                        $categoria = strtolower($favorito->curso->areaCategoria->categoria->CAT_STR_DESC);
+
+                        // remove acentos e espaços
+                        $categoria = \Illuminate\Support\Str::slug($categoria, '-');
+
+                        // caminhos
+                        $pathImagem = public_path("assets/images/{$categoria}.png");
+                        $imgUrl = asset("assets/images/{$categoria}.png");
+
+                        $defaultImg = asset("assets/images/img-curso-TI.png");
+                        @endphp
+
+                        <img
+                            src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
+                            alt="Imagem do curso {{ $favorito->CUR_STR_TITULO }}"
+                        >
+
+                    </div>
+
+                    <h3>{{ $favorito->curso->CUR_STR_TITULO }}</h3>
+                    <p class="descricao">{{ $favorito->curso->CUR_STR_DESC }}</p>
+
+                    <div class="info-curso">
+                        <div class="botoes">
+                            <a href="{{ $favorito->curso->CUR_STR_URL }}" target="_blank">Ir para curso</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            @empty
+            <p style="text-align: center;">Nenhum curso favoritado ainda.</p>
+            @endforelse
+        </div>
+
+
+
+        <!-- recentes -->
+        <div id="recentes" class="conteudo">
+
+            @forelse($recentes as $curso)
+            <div class="div-cursos-perfil">
+                <div class="card_curso-perfil">
+                    <div class="image_curso">
+
+                        @php
                         // pega o nome CERTINHO da categoria
                         $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
 
@@ -59,123 +107,77 @@
                             alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}">
 
                     </div>
-                </div>
 
-                <h3>{{ $favorito->curso->CUR_STR_TITULO }}</h3>
-                <p class="descricao">{{ $favorito->curso->CUR_STR_DESC }}</p>
+                    <h3>{{ $curso->CUR_STR_TITULO }}</h3>
+                    <p class="descricao">{{ $curso->CUR_STR_DESC }}</p>
 
-                <div class="info-curso">
-                    <div class="botoes">
-                        <a href="{{ $favorito->curso->CUR_STR_URL }}" target="_blank">Ir para curso</a>
+                    <div class="info-curso">
+                        <div class="botoes">
+                            <a href="{{ route('curso.acessar', $curso->CUR_INT_ID) }}" target="_blank">
+                                Ir para curso
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            @empty
+            <p style="text-align: center;">nenhum curso foi acessado.</p>
+            @endforelse
+
         </div>
-        @empty
-        <p style="text-align: center;">Nenhum curso favoritado ainda.</p>
-        @endforelse
 
 
-    </div>
+        <!-- CONFIGURAÇOES -->
 
-    <!-- recentes -->
-    <div id="recentes" class="conteudo">
-
-        @forelse($recentes as $curso)
-        <div class="div-cursos-perfil">
-            <div class="card_curso-perfil">
-                <div class="image_curso">
-
-                    @php
-                    // pega o nome CERTINHO da categoria
-                    $categoria = strtolower($curso->areaCategoria->categoria->CAT_STR_DESC);
-
-                    // remove espaços e acentos se quiser
-                    $categoria = \Illuminate\Support\Str::slug($categoria, '-');
-
-                    // caminhos
-                    $pathImagem = public_path("assets/images/{$categoria}.png");
-                    $imgUrl = asset("assets/images/{$categoria}.png");
-
-                    $defaultImg = asset("assets/images/img-curso-TI.png");
-                    @endphp
-
-                    <img
-                        src="{{ file_exists($pathImagem) ? $imgUrl : $defaultImg }}"
-                        alt="Imagem do curso {{ $curso->CUR_STR_TITULO }}">
-
-                </div>
-
-                <h3>{{ $curso->CUR_STR_TITULO }}</h3>
-                <p class="descricao">{{ $curso->CUR_STR_DESC }}</p>
-
-                <div class="info-curso">
-                    <div class="botoes">
-                        <a href="{{ route('curso.acessar', $curso->CUR_INT_ID) }}" target="_blank">
-                            Ir para curso
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @empty
-        <p style="text-align: center;">nenhum curso foi acessado.</p>
-        @endforelse
-
-    </div>
-
-    </div>
-
-    <!-- CONFIGURAÇOES -->
-    <div class="div-config-perfil">
         <div id="configuracoes" class="conteudo">
+            <div class="div-config-perfil">
+                <div class="div-acao">
+                    <form action="/TesteVocacional" method="GET">
+                        @csrf
+                        <button type="submit" class="botao-deslog">TESTE VOCACIONAL</button>
+                    </form>
+                </div>
 
-            <div class="div-acao">
-                <form action="/TesteVocacional" method="GET">
-                    @csrf
-                    <button type="submit" class="botao-deslog">TESTE VOCACIONAL</button>
-                </form>
-            </div>
+                <div class="div-acao">
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="botao-deslog">EDITAR PERFIL</button>
+                    </form>
+                </div>
 
-            <div class="div-acao">
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="botao-deslog">EDITAR PERFIL</button>
-                </form>
-            </div>
+                <div class="div-acao">
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="botao-deslog">ACESSIBILIDADE</button>
+                    </form>
+                </div>
+                <div class="div-acao">
+                    <form action="/faq" method="GET">
+                        @csrf
+                        <button type="submit" class="botao-deslog">DUVIDAS?</button>
+                    </form>
+                </div>
 
-            <div class="div-acao">
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="botao-deslog">ACESSIBILIDADE</button>
-                </form>
-            </div>
-            <div class="div-acao">
-                <form action="/faq" method="GET">
-                    @csrf
-                    <button type="submit" class="botao-deslog">DUVIDAS?</button>
-                </form>
-            </div>
+                <div class="div-acao-deslog">
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="botao-deslog">DESCONECTAR</button>
+                    </form>
+                </div>
 
-            <div class="div-acao-deslog">
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="botao-deslog">DESCONECTAR</button>
-                </form>
-            </div>
+                <div class="div-acao-destiv">
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="botao-deslog">DESATIVAR CONTA</button>
+                    </form>
+                </div>
 
-            <div class="div-acao-destiv">
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="botao-deslog">DESATIVAR CONTA</button>
-                </form>
             </div>
 
         </div>
 
     </div>
 
-    </div>
 </main>
 
 <script>

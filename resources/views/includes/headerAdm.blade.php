@@ -16,7 +16,7 @@
         <!--HEADER E NAVE -->
         <header>
             <div class="div-logo">
-                <a href="/HomeAdm">
+                <a href="/">
                     <img src="../assets/images/logo_Busca.png" alt="Logo BuscaCursos">
                 </a>
             </div>

@@ -12,10 +12,6 @@
         <p>4</p>
 
     </div>
-    <div class="div-numeros">
-        <h3>Quantidade de Usuarios novos</h3>
-        <p>2</p>
-    </div>
 </div>
 
 <div class="div-lista">
@@ -24,10 +20,8 @@
             <input type="search" name="" id="" placeholder="Pesquisar Plataforma...">
         </form>
         <div class="bts-acoes">
-            <a href="" class="btt-ac">Filtrar</a>
             <a href="/CadAdm" class="btt-ac" >+ ADM</a>
             <a href="/CadUser" class="btt-ac" >+ User</a>
-            <a href="" class="btt-ac">Relatório</a>
         </div>
     </div>
     <div class="div-tabela">
@@ -38,13 +32,16 @@
         </div>
         @foreach($users as $user)
 
-        <div class="row-tabela">
+        <div class="row-tabela" style="background-color: {{ $user->USU_INT_SITUACAO == 0 ? '#fa9aa2ce' : '#b1b0b0' }};">
             <h3>{{ $user->USU_STR_NOME }}</h3>
             <h3>{{$user->USU_STR_EMAIL}}</h3>
 
-            <div class="bts-acoes-table">
-                <a href="">Editar</a>
-                <a href="{{ route('user.desativarUser', $user->USU_INT_ID) }}">Desativar</a> 
+            <div class="bts-acoes-table" >
+                @if($user->USU_INT_SITUACAO == 1)
+                <a href="{{ route('user.desativarUser', $user->USU_INT_ID) }}" style="color: red;">Desativar</a> 
+                @else
+                    <span style="color: black;">Usuario desativado</span>
+                @endif
             </div>
         </div>
         @endforeach

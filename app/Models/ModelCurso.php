@@ -19,7 +19,8 @@ class ModelCurso extends Model
         'CUR_STR_DESC',
         'CUR_STR_DATAINICIO',
         'CUR_STR_NIVELENSINO',
-        'CUR_STR_INSERCAO'
+        'CUR_STR_INSERCAO',
+        'CUR_INT_SITUACAO' 
     ];
 
     // Curso pertence a uma área
